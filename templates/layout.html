@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golf Buddy - {% block title %} {% endblock title %}</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <h1>Golf Buddy</h1>
+    {% block nav %}
+    <nav>
+        <div class="nav">
+            <a href="/">Home</a>
+            <a href="/courses">Courses</a>
+            <a href="/my-stats">My Stats</a>
+            <a href="/play-round">Play Round</a>
+        </div>
+    </nav>
+    {% endblock nav %}
+    <main>
+        {% block welcome %}
+        <p>
+            <form action = "/logout" method="post">
+                <span>Welcome {{ username }}!</span>
+                <button type="submit">Logout</button>
+            </form>
+        </p> 
+        {% endblock welcome %}
+        {% block main %} {% endblock main %}
+    </main>
+</body>
+</html>
