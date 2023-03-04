@@ -17,3 +17,7 @@ def get_course_list():
 def get_course_info(id):
     info = sql_select("SELECT * FROM courses WHERE id = %s;", [id])
     return info
+
+def get_course_reviews(course_id):
+    info = sql_select("SELECT review_text, rating, username FROM reviews JOIN users ON user_id = users.id WHERE course_id = %s;", [course_id])
+    return info

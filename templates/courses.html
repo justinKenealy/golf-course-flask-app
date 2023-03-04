@@ -27,13 +27,21 @@
 <h2>{{course_info[1]}}</h2>
 <h4>Par {{course_info[4]}}</h4>
 <p>{{course_info[3]}}</p>
+<div><a href="{{course_info[2]}}">Visit {{course_info[1]}} webpage.</a></div>
 <img class="courseImg" src="{{course_info[6]}}">
 <h4>Hole Layout</h4>
 <div>{{course_info[8]}}</div>
-<div><a href="{{course_info[2]}}">Visit {{course_info[1]}} webpage.</a></div>
-<h3>Reviews:</h3>
-<div>No reviews yet</div>
-
+<h4>Reviews:</h4>
+    {% if reviews %}
+    {% for review in reviews %}
+    <div class="reviewDiv">
+        <div>{{ review[2] }} - {{ review[1] }}/10</div>
+        <div>{{ review[0] }}</div>
+    </div>    
+    {% endfor %}
+    {% else %}
+    <div>No reviews yet</div>
+    {% endif %}
 {% endif %}
 
 {% endblock main %}

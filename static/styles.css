@@ -1,3 +1,10 @@
 .courseImg{
     width: 80%
 }
+
+.reviewDiv{
+    border: 1px solid black;
+    width: 60%;
+    margin-bottom: 10px;
+    padding: 5px;
+}

@@ -19,7 +19,7 @@
 --     logo_image TEXT,
 --     course_image TEXT,
 --     course_map TEXT,
---     hole_scores TEXT
+--     hole_scores TEXT,
 -- );
 
 -- CREATE TABLE rounds (
