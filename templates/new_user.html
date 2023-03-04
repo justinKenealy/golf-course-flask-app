@@ -1,20 +1,24 @@
 {% extends "layout.html" %}
 
 {% block title %} 
-    Create Item
+    Create Account
 {% endblock title %}
 
 {% block main %} 
-    <!-- <form action="/add_user" method="post">
+    <form action="/new_user" method="post">
         <p>
-            <label>Username:</label>
+            <label>Name:</label>
             <input name="name" type="text" required></input>
         </p>
         <p>
-            <label>Email:</label>
-            <input name="email" type="text" required></input>
+            <label>Username:</label>
+            <input name="username" type="text" required></input>
+        </p>
+        <p>
+            <label>Password</label>
+            <input name="password" type="password" required></input>
         </p>
 
-        <button type="submit">Create User</button>
-    </form> -->
+        <button type="submit">Create Account</button>
+    </form>
 {% endblock main %}

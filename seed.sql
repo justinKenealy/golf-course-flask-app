@@ -29,3 +29,41 @@
 
 -- INSERT INTO rounds (user_id, course_id, total_score, total_putts, hole_scores) 
 --     VALUES (1, 1, 72, 32, '[4,4,5,4,6,3,5,3,4,4,4,5,4,4,4,5,4,2]');
+
+INSERT INTO courses (
+    name, 
+    web_link, 
+    course_description, 
+    par_score, 
+    logo_image, 
+    course_image, 
+    course_map, 
+    hole_scores) 
+    VALUES 
+    ('Green Acres Golf Club', 
+    'http://www.greenacresgolf.com.au/', 
+    'Green Acres Golf Club is Melbourne''s premier Yarra River golf course with a proud history dating back to 1948. Ideally located just moments from the bustling heart of the city in a lush and tranquil riverside setting, Green Acres provides members with exclusive access to a challenging 18-hole course, a contemporary clubhouse, a comprehensive golf centre and a friendly sense of community.',
+    72, 
+    'http://www.greenacresgolf.com.au/resources/images/logo.jpg',
+    'http://www.greenacresgolf.com.au/cms_uploads/images/51_1st-1.jpg',
+    '',
+    '[4, 4, 5, 3, 3, 4, 4, 5, 3, 4, 3, 4, 4, 5, 4, 4, 3, 4]');
+
+    INSERT INTO courses (
+    name, 
+    web_link, 
+    course_description, 
+    par_score, 
+    logo_image, 
+    course_image, 
+    course_map, 
+    hole_scores) 
+    VALUES 
+    ('Latrobe Golf Club', 
+    'https://www.latrobegolf.com.au/', 
+    'Latrobe Golf Club is a beautiful course in the leafy suburb of Alphington, just 10 Km from Melbourne''s CBD. It is bordered on two sides by the Yarra River and lined by majestic Red River Gums.',
+    72, 
+    'https://www.latrobegolf.com.au/cms/wp-content/themes/latrobe/images/logo.png',
+    'https://golf-pass.brightspotcdn.com/dims4/default/38567c0/2147483647/strip/true/crop/1440x929+0+14/resize/930x600!/quality/90/?url=https%3A%2F%2Fgolf-pass-brightspot.s3.amazonaws.com%2F1a%2Fb2%2Fd747df0edadbff7ef0b979e46959%2F100014.jpg',
+    '',
+    '[3, 5, 4, 4, 4, 4, 4, 4, 3, 4, 3, 5, 3, 4, 4, 5, 4, 5]');

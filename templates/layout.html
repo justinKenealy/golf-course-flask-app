@@ -14,19 +14,23 @@
         <div class="nav">
             <a href="/">Home</a>
             <a href="/courses">Courses</a>
-            <a href="/my-stats">My Stats</a>
             <a href="/play-round">Play Round</a>
         </div>
     </nav>
     {% endblock nav %}
     <main>
         {% block welcome %}
+        {% if username %}
         <p>
             <form action = "/logout" method="post">
                 <span>Welcome {{ username }}!</span>
                 <button type="submit">Logout</button>
             </form>
         </p> 
+        {% else %}
+        <a href="/login"><button>Log In</button></a>
+        <a href="/signup"><button>Sign Up</button></a>
+        {% endif %}
         {% endblock welcome %}
         {% block main %} {% endblock main %}
     </main>
