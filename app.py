@@ -1,7 +1,12 @@
 from flask import Flask, request, render_template, redirect, session
 import psycopg2
 from models.models import login_user, get_course_list, get_course_info, create_new_user
-from password_generator import password_generator
+from werkzeug.security import generate_password_hash, check_password_hash
+
+def password_generator(password):
+    password_hash = generate_password_hash(password)
+    return password_hash
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "87fc31be7c09459324b4801e446098d2";
@@ -24,6 +29,7 @@ def new_user():
 
 @app.post('/new_user')
 def user_added():
+    #add logic so new user can't take existing username
     create_new_user(
         request.form.get('name'),
         request.form.get('username'),
@@ -39,17 +45,15 @@ def render_login_page():
 @app.post('/login')
 def login():
     username = request.form.get('username')
-
-
-    # VALIDATE PASSWORDS HERE AS WELL
-
-
+    password = request.form.get('password')
     result = login_user(username); 
-    if result is None:
-        return redirect('/login')
-    else:
+    password_matches = check_password_hash(result[3], password)
+    if result is not None and password_matches:
         session['username'] = result[1]
         return redirect ('/')
+    else:
+        incorrect = True
+        return render_template('login_form.html', incorrect = incorrect)
 
 #user logout
 @app.post('/logout')
