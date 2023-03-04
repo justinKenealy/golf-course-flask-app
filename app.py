@@ -47,11 +47,13 @@ def login():
     username = request.form.get('username')
     password = request.form.get('password')
     result = login_user(username); 
+    
     password_matches = check_password_hash(result[3], password)
     if result is not None and password_matches:
         session['username'] = result[1]
         session['user_id'] = result[0]
-        print(session['user_id'])
+        if result[4]:
+            session['admin'] = True
         return redirect ('/')
     else:
         incorrect = True
@@ -61,20 +63,35 @@ def login():
 @app.post('/logout')
 def logout_user():
     if session.get('username'):
-        session.pop('username')
+        session.clear()
     return render_template('home.html')
 
 
 @app.route('/courses')
 def course_render():
-    selected_course_id = session['course_id']
-    print(selected_course_id)
-    course_info = get_course_info(selected_course_id)[0]
-    course_list = get_course_list()
-    reviews = get_course_reviews(course_info[0])
-    user_id = session['user_id']
-    return render_template('courses.html', session_course_id = session['course_id'], selected_course_id = selected_course_id, user_id = user_id, course_list = course_list, course_info=course_info, reviews=reviews)
-
+    print(session.get('course_id'))
+    print(session.get('user_id'))
+    if session.get('course_id') and session.get('user_id'):
+        print('made it here')
+        course_list = get_course_list()
+        selected_course_id = session.get('course_id')
+        course_info = get_course_info(selected_course_id)[0]
+        reviews = get_course_reviews(course_info[0])
+        user_id = session.get('user_id')
+        return render_template('courses.html', session_course_id = session['course_id'], selected_course_id = selected_course_id, user_id = user_id, course_list = course_list, course_info=course_info, reviews=reviews)
+    elif session.get('course_id'):
+        course_list = get_course_list()
+        selected_course_id = session['course_id']
+        course_info = get_course_info(selected_course_id)[0]
+        reviews = get_course_reviews(course_info[0])
+        return render_template('courses.html', session_course_id = session['course_id'], selected_course_id = selected_course_id, course_list = course_list, course_info=course_info, reviews=reviews)
+    elif session.get('user_id'):
+        course_list = get_course_list()
+        user_id = session['user_id']
+        return render_template('courses.html', user_id = user_id, course_list = course_list)
+    else:
+        course_list = get_course_list()
+        return render_template('courses.html', course_list = course_list)
 
 @app.post('/courses')
 def course_selected():
@@ -84,7 +101,10 @@ def course_selected():
     course_info = get_course_info(selected_course_id)[0]
     course_list = get_course_list()
     reviews = get_course_reviews(course_info[0])
-    user_id = session['user_id']
+    if session.get('user_id'):
+        user_id = session['user_id']
+    else:
+        user_id = None
     return render_template('courses.html', session_course_id = session['course_id'], selected_course_id = selected_course_id, user_id = user_id, course_list = course_list, course_info=course_info, reviews=reviews)
 
 

@@ -5,7 +5,7 @@
 {% endblock title %}
 
 {% block main %} 
-{% if username %}
+{% if session.get('user_id') %}
 Stats will appear below
 {% endif %}
 {% endblock main %}

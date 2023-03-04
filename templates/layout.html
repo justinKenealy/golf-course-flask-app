@@ -14,16 +14,19 @@
         <div class="nav">
             <a href="/">Home</a>
             <a href="/courses">Courses</a>
+            {% if session.get('admin') %}
+            <a href="/add-course">Add Course</a>
+            {% endif %}
             <a href="/play-round">Play Round</a>
         </div>
     </nav>
     {% endblock nav %}
     <main>
         {% block welcome %}
-        {% if username %}
+        {% if session.get('user_id') %}
         <p>
             <form action = "/logout" method="post">
-                <span>Welcome {{ username }}!</span>
+                <span>Hello {{ session.get('username') }}!</span>
                 <button type="submit">Logout</button>
             </form>
         </p> 

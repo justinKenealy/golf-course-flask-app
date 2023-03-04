@@ -4,13 +4,7 @@
     Courses
 {% endblock title %}
 
-{% block welcome %} 
-{% endblock welcome %} 
-
 {% block main %} 
-<form action = "/logout" method="post">
-    <button type="submit">Logout</button>
-</form>
 <form action = "/courses" method="post" id="courseform">
     <h3>Select a course:</h3>
     <select name="courses" id="courses" form="courseform">
@@ -45,6 +39,7 @@
     {% else %}
     <div>No reviews yet</div>
     {% endif %}
+    {% if session['username'] %}
     <form action="/leave-review" method="post">
         <p>
             <label>Review:</label>
@@ -58,6 +53,9 @@
         <input name ="user_id" type="hidden" value="{{ user_id }}">
         <button type="submit">Submit Review</button>
     </form>
+    {% else %}
+    <div class="canNotLeaveReview">Login or create an account to leave a review.</div>
+    {% endif %}
 {% endif %}
 
 {% endblock main %}
