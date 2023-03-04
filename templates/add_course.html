@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block title %} 
+    Create Item
+{% endblock title %}
+
+{% block main %} 
+    <h3>Enter New Course Details Below</h3>
+    <form action="/add-course" method="post">
+        <p>
+            <label>Course Name:</label>
+            <input name="name" type="text"></input>
+        </p>
+        <p>
+            <label>Course Description:</label>
+            <input name="description" type="text"></input>
+        </p>
+        <p>
+            <label>Par Score</label>
+            <input name="par" type="number" min="60" max="80" step="1"></input>
+        </p>
+        <p>
+            <label>Course Logo URL:</label>
+            <input name="logo" type="text"></input>
+        </p>
+        <p>
+            <label>Course Image URL:</label>
+            <input name="image" type="text"></input>
+        </p>
+        <p>
+            <label>Course webpage URL:</label>
+            <input name="link" type="text"></input>
+        </p>
+        <button type="submit">Add Course</button>
+    </form>
+{% endblock main %}

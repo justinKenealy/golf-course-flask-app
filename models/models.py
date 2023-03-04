@@ -29,3 +29,10 @@ def add_review_to_db(review_text, rating, user_id, course_id):
         [review_text, rating, user_id, course_id]
     )
     return
+
+def add_new_course(name, link, description, par, logo, img):
+    sql_write(
+        'INSERT INTO courses(name, web_link, course_description, par_score, logo_image, course_image) VALUES (%s, %s, %s, %s, %s, %s);',
+        [name, link, description, par, logo, img]
+    )
+    return
