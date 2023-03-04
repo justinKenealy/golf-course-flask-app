@@ -7,7 +7,8 @@ def login_user(username):
 def create_new_user(name, username, password_hash):
     sql_write(
         'INSERT INTO users(name, username, password_hash, admin) VALUES (%s, %s, %s, %s);',
-        [name, username, password_hash, False])
+        [name, username, password_hash, False]
+        )
     return        
 
 def get_course_list():
@@ -19,5 +20,12 @@ def get_course_info(id):
     return info
 
 def get_course_reviews(course_id):
-    info = sql_select("SELECT review_text, rating, username FROM reviews JOIN users ON user_id = users.id WHERE course_id = %s;", [course_id])
+    info = sql_select("SELECT review_text, rating, username, user_id FROM reviews JOIN users ON user_id = users.id WHERE course_id = %s;", [course_id])
     return info
+
+def add_review_to_db(review_text, rating, user_id, course_id):
+    sql_write(
+        'INSERT INTO reviews(review_text, rating, user_id, course_id) VALUES (%s, %s, %s, %s);',
+        [review_text, rating, user_id, course_id]
+    )
+    return

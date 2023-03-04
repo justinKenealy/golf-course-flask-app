@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template, redirect, session
 import psycopg2
-from models.models import login_user, get_course_list, get_course_info, create_new_user, get_course_reviews
+from models.models import login_user, get_course_list, get_course_info, create_new_user, get_course_reviews, add_review_to_db
 from werkzeug.security import generate_password_hash, check_password_hash
 
 def password_generator(password):
@@ -65,21 +65,40 @@ def logout_user():
     return render_template('home.html')
 
 
-#courses page
 @app.route('/courses')
-def courses():
+def course_render():
+    selected_course_id = session['course_id']
+    print(selected_course_id)
+    course_info = get_course_info(selected_course_id)[0]
     course_list = get_course_list()
-    return render_template('courses.html', course_list = course_list)
+    reviews = get_course_reviews(course_info[0])
+    user_id = session['user_id']
+    return render_template('courses.html', session_course_id = session['course_id'], selected_course_id = selected_course_id, user_id = user_id, course_list = course_list, course_info=course_info, reviews=reviews)
+
 
 @app.post('/courses')
 def course_selected():
     selected_course_id = request.form.get('courses')
+    session['course_id'] = selected_course_id
+    print(selected_course_id)
     course_info = get_course_info(selected_course_id)[0]
-    session['course_id'] = course_info[0]
     course_list = get_course_list()
     reviews = get_course_reviews(course_info[0])
-    print(reviews)
-    return render_template('courses.html', course_list = course_list, course_info=course_info, reviews=reviews)
+    user_id = session['user_id']
+    return render_template('courses.html', session_course_id = session['course_id'], selected_course_id = selected_course_id, user_id = user_id, course_list = course_list, course_info=course_info, reviews=reviews)
+
+
+@app.post('/leave-review')
+def leave_review():
+  
+    add_review_to_db(
+        request.form.get('review'), 
+        request.form.get('rating'), 
+        request.form.get('user_id'),
+        request.form.get('course_id')
+        )
+
+    return redirect('/courses')
 
 #play round page
 @app.route('/play-round')
