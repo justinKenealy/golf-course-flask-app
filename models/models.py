@@ -36,3 +36,10 @@ def add_new_course(name, link, description, par, logo, img):
         [name, link, description, par, logo, img]
     )
     return
+
+def submit_scores(user_id, course_id, total_score, total_putts, date):
+    sql_write(
+        'INSERT INTO rounds(user_id, course_id, total_score, total_putts, round_date) VALUES (%s, %s, %s, %s, %s);',
+        [user_id, course_id, total_score, total_putts, date]
+    )
+    return

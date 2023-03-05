@@ -34,7 +34,8 @@
 --         REFERENCES courses(id),
 --     total_score INT,
 --     total_putts INT,
---     hole_scores TEXT
+--     hole_scores TEXT,
+--     round_date DATE
 -- );
 
 -- CREATE TABLE reviews (

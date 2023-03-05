@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template, redirect, session
 import psycopg2
-from models.models import login_user, get_course_list, get_course_info, create_new_user, get_course_reviews, add_review_to_db, add_new_course
+from models.models import submit_scores, login_user, get_course_list, get_course_info, create_new_user, get_course_reviews, add_review_to_db, add_new_course
 from werkzeug.security import generate_password_hash, check_password_hash
 
 def password_generator(password):
@@ -72,7 +72,6 @@ def course_render():
     print(session.get('course_id'))
     print(session.get('user_id'))
     if session.get('course_id') and session.get('user_id'):
-        print('made it here')
         course_list = get_course_list()
         selected_course_id = session.get('course_id')
         course_info = get_course_info(selected_course_id)[0]
@@ -123,7 +122,19 @@ def leave_review():
 #play round page
 @app.route('/play-round')
 def play():
-    return render_template('play.html')
+    course_list = get_course_list()
+    return render_template('play.html', course_list = course_list)
+
+@app.post('/play-round')
+def submit_round():    
+    submit_scores(
+        session.get('user_id'),
+        request.form.get('course'),
+        request.form.get('numShots'),
+        request.form.get('numPutts'),
+        request.form.get('date')
+    )
+    return redirect('/')
 
 #add course
 @app.route('/add-course')

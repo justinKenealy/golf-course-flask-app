@@ -12,4 +12,28 @@
     <button type="submit">Logout</button>
 </form>
     Enter your scores below
+<div id="playRound">
+    <form action = "/play-round" method="post" id="playRoundForm">
+        <h3>Select course:</h3>
+        <select name="course" id="course" form="playRoundForm">
+            <option value="" disabled selected>---</option>
+            {% for course in course_list %}
+            <option value="{{ course[0] }}">{{ course[1] }}</option>
+            {% endfor %}}
+        </select>
+        <h3>Date of Round:</h3>
+        <input type="date" name="date">
+        <h3>Number of Shots:</h3>
+        <label for="numShots">
+            <input type="number" name="numShots" step="1">
+        </label>
+        <h3>Number of Putts:</h3>
+        <label for="numPutts">
+            <input type="number" name="numPutts" step="1">
+        </label>
+        <div>
+            <button type="submit">Submit Round</button>
+        </div>
+    </form>
+</div>
 {% endblock main %}
