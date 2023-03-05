@@ -31,7 +31,9 @@
     <div class="reviewDiv">
         <div>{{ review[2] }} - {{ review[1] }}/10</div>
         <div>{{ review[0] }}</div>
-        {% if review[3] == user_id %}
+        {% if review[3] == user_id %} 
+        <button>Delete review</button>
+        {% elif session.get('admin') %}
         <button>Delete review</button>
         {% endif %}
     </div>    
