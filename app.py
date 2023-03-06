@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template, redirect, session
 import psycopg2
-from models.models import get_rounds, get_five_rounds, get_ten_rounds, submit_scores, login_user, get_course_list, get_course_info, create_new_user, get_course_reviews, add_review_to_db, add_new_course, remove_review_from_db
+from models.models import add_request, get_all_requests, get_rounds, get_five_rounds, get_ten_rounds, submit_scores, login_user, get_course_list, get_course_info, create_new_user, get_course_reviews, add_review_to_db, add_new_course, remove_review_from_db
 from werkzeug.security import generate_password_hash, check_password_hash
 
 def password_generator(password):
@@ -180,4 +180,14 @@ def course_added():
 
 @app.route('/requests')
 def requests():
-    return render_template('requests.html')
+    course_requests = get_all_requests()
+    print(course_requests)
+    return render_template('requests.html', course_requests = course_requests)
+
+@app.post('/request')
+def add_request_form():
+    add_request(
+        request.form.get('course_name'),
+        request.form.get('course_link')
+    )
+    return redirect('/play-round')

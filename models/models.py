@@ -67,4 +67,12 @@ def get_ten_rounds(user_id):
     return info
 
 def add_request(course_name, course_link):
-    sql_write()
+    sql_write(
+        'INSERT INTO requests(course_name, course_link) VALUES (%s, %s);',
+        [course_name, course_link]
+    )
+    return
+
+def get_all_requests():
+    info = sql_select_no_params("SELECT course_name, course_link FROM requests")
+    return info

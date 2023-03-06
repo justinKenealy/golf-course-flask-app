@@ -6,5 +6,9 @@
 
 {% block main %} 
     <h3>Users Have Requested the Following Courses</h3>
-    
+    <ul>
+        {% for request in course_requests %}
+        <li><a href="{{ request[1] }}">{{ request[0] }}</a></li>
+        {% endfor %}
+    </ul>
 {% endblock main %}
