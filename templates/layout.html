@@ -16,8 +16,11 @@
             <a href="/courses">Courses</a>
             {% if session.get('admin') %}
             <a href="/add-course">Add Course</a>
+            <a href="/requests">Course Requests</a>
             {% endif %}
+            {% if session.get('user_id') %}
             <a href="/play-round">Play Round</a>
+            {% endif %}
         </div>
     </nav>
     {% endblock nav %}

@@ -1,4 +1,4 @@
-from database import sql_select, sql_select_no_params, sql_write
+from database import sql_select, sql_select_no_params, sql_write, sql_write_no_params
 
 def login_user(username):
     info = sql_select("SELECT * FROM users WHERE username = %s;", [username])[0]
@@ -30,6 +30,10 @@ def add_review_to_db(review_text, rating, user_id, course_id):
     )
     return
 
+def remove_review_from_db(user_id, course_id):
+    sql_write('DELETE FROM reviews WHERE user_id = %s AND course_id = %s;', [user_id, course_id])
+    return
+
 def add_new_course(name, link, description, par, logo, img):
     sql_write(
         'INSERT INTO courses(name, web_link, course_description, par_score, logo_image, course_image) VALUES (%s, %s, %s, %s, %s, %s);',
@@ -43,3 +47,24 @@ def submit_scores(user_id, course_id, total_score, total_putts, date):
         [user_id, course_id, total_score, total_putts, date]
     )
     return
+
+def get_rounds(user_id):
+    info = sql_select(
+        'SELECT user_id, course_id, name, par_score, total_score, total_putts, round_date FROM rounds JOIN courses on courses.id = rounds.course_id WHERE user_id = %s ORDER BY round_date DESC', [user_id] 
+    )
+    return info
+
+def get_five_rounds(user_id):
+    info = sql_select(
+        'SELECT total_score - par_score AS score, total_putts FROM rounds JOIN courses on courses.id = rounds.course_id WHERE user_id = %s ORDER BY round_date DESC LIMIT 5', [user_id] 
+    )
+    return info
+
+def get_ten_rounds(user_id):
+    info = sql_select(
+        'SELECT total_score - par_score AS score, total_putts FROM rounds JOIN courses on courses.id = rounds.course_id WHERE user_id = %s ORDER BY round_date DESC LIMIT 10', [user_id] 
+    )
+    return info
+
+def add_request(course_name, course_link):
+    sql_write()

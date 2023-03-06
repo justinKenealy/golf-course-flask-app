@@ -51,3 +51,9 @@
 --         FOREIGN KEY(course_id)
 --         REFERENCES courses(id)
 -- );
+
+-- CREATE TABLE requests (
+--     id SERIAL PRIMARY KEY,
+--     course_name TEXT,
+--     course_link TEXT
+-- );

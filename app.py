@@ -1,12 +1,11 @@
 from flask import Flask, request, render_template, redirect, session
 import psycopg2
-from models.models import submit_scores, login_user, get_course_list, get_course_info, create_new_user, get_course_reviews, add_review_to_db, add_new_course
+from models.models import get_rounds, get_five_rounds, get_ten_rounds, submit_scores, login_user, get_course_list, get_course_info, create_new_user, get_course_reviews, add_review_to_db, add_new_course, remove_review_from_db
 from werkzeug.security import generate_password_hash, check_password_hash
 
 def password_generator(password):
     password_hash = generate_password_hash(password)
     return password_hash
-
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "87fc31be7c09459324b4801e446098d2";
@@ -18,7 +17,24 @@ if __name__ == "__main__":
 @app.route('/')
 def index():
     if session.get('username'):
-        return render_template('home.html', username = session.get('username'))
+        stats = get_rounds(session.get('user_id'))
+        five_rounds = get_five_rounds(session.get('user_id'))
+        ten_rounds = get_ten_rounds(session.get('user_id'))
+        total_score_five = 0
+        total_score_ten = 0
+        total_putts_five = 0
+        total_putts_ten = 0
+        for round in five_rounds:
+            total_score_five += round[0]
+            total_putts_five += round[1]
+        for round in ten_rounds:
+            total_score_ten += round[0]
+            total_putts_ten += round[1]
+        ave_score_five = "{:.1f}".format(total_score_five/len(five_rounds))
+        ave_putts_five = "{:.1f}".format(total_putts_five/len(five_rounds))
+        ave_score_ten = "{:.1f}".format(total_score_ten/len(ten_rounds))
+        ave_putts_ten = "{:.1f}".format(total_putts_ten/len(ten_rounds))
+        return render_template('home.html', username = session.get('username'), stats = stats, ave_putts_five=ave_putts_five, ave_score_five=ave_score_five, ave_score_ten=ave_score_ten, ave_putts_ten=ave_putts_ten)
     else:
         return render_template('home.html')
 
@@ -68,16 +84,18 @@ def logout_user():
 
 
 @app.route('/courses')
-def course_render():
-    print(session.get('course_id'))
-    print(session.get('user_id'))
+def course_render(): 
     if session.get('course_id') and session.get('user_id'):
         course_list = get_course_list()
         selected_course_id = session.get('course_id')
         course_info = get_course_info(selected_course_id)[0]
         reviews = get_course_reviews(course_info[0])
         user_id = session.get('user_id')
-        return render_template('courses.html', session_course_id = session['course_id'], selected_course_id = selected_course_id, user_id = user_id, course_list = course_list, course_info=course_info, reviews=reviews)
+        reviewed = False
+        for review in reviews:
+            if review[3] == session.get('user_id'):
+                reviewed = True 
+        return render_template('courses.html', session_course_id = session['course_id'], selected_course_id = selected_course_id, user_id = user_id, course_list = course_list, course_info=course_info, reviews=reviews, reviewed = reviewed)
     elif session.get('course_id'):
         course_list = get_course_list()
         selected_course_id = session['course_id']
@@ -106,7 +124,6 @@ def course_selected():
         user_id = None
     return render_template('courses.html', session_course_id = session['course_id'], selected_course_id = selected_course_id, user_id = user_id, course_list = course_list, course_info=course_info, reviews=reviews)
 
-
 @app.post('/leave-review')
 def leave_review():
   
@@ -117,6 +134,11 @@ def leave_review():
         request.form.get('course_id')
         )
 
+    return redirect('/courses')
+
+@app.get('/delete-review/<id>')
+def remove_review(id):
+    remove_review_from_db(id, session['course_id'])
     return redirect('/courses')
 
 #play round page
@@ -155,3 +177,7 @@ def course_added():
         request.form.get('image')    
     )
     return redirect('/courses')
+
+@app.route('/requests')
+def requests():
+    return render_template('requests.html')

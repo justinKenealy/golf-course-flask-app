@@ -27,3 +27,12 @@ def sql_write(query, params):
     db_connection.close()
     return 
 
+def sql_write_no_params(query):
+    db_connection = psycopg2.connect("dbname=golf_app")
+    db_cursor = db_connection.cursor()
+    db_cursor.execute(query)
+    db_connection.commit()
+    db_cursor.close()
+    db_connection.close()
+    return 
+

@@ -32,9 +32,9 @@
         <div>{{ review[2] }} - {{ review[1] }}/10</div>
         <div>{{ review[0] }}</div>
         {% if review[3] == user_id %} 
-        <button>Delete review</button>
+        <a href="/delete-review/{{ review[3] }}"><button>Remove</button></a>
         {% elif session.get('admin') %}
-        <button>Delete review</button>
+        <a href="/delete-review/{{ review[3] }}"><button>Remove</button></a>
         {% endif %}
     </div>    
     {% endfor %}
@@ -42,6 +42,8 @@
     <div>No reviews yet</div>
     {% endif %}
     {% if session['username'] %}
+    {% if reviewed %}
+    {% else %}
     <form action="/leave-review" method="post">
         <p>
             <label>Review:</label>
@@ -55,6 +57,7 @@
         <input name ="user_id" type="hidden" value="{{ user_id }}">
         <button type="submit">Submit Review</button>
     </form>
+    {% endif %}
     {% else %}
     <div class="canNotLeaveReview">Login or create an account to leave a review.</div>
     {% endif %}
