@@ -6,9 +6,10 @@
 
 {% block main %} 
 {% if session.get('user_id') %}
-
-
-
+<div id="golfQuote"></div>
+{% if stats == 0 %}
+<div>You haven't played any rounds! Input your scores to build your stats.</div>
+{% else %}
 <div>
     <h3>Last round</h3>
     <ul>
@@ -25,7 +26,6 @@
         <li>Putts: {{ stats[0][5] }}</li>
     </ul>
 </div>
-
 <div>
     <h3>Last 5 rounds</h3>
     <ul>
@@ -33,7 +33,6 @@
         <li>Putts: {{ ave_putts_five }}</li>
     </ul>
 </div>
-
 <div>
     <h3>Last 10 rounds</h3>
     <ul>
@@ -41,11 +40,6 @@
         <li>Putts: {{ ave_putts_ten }}</li>
     </ul>
 </div>
-
-
-
-
-
 <button>View All Rounds</button>
 <table>
     <thead>
@@ -73,6 +67,6 @@
         {% endfor %}
     </tbody>
 </table>
-
+{% endif %}
 {% endif %}
 {% endblock main %}

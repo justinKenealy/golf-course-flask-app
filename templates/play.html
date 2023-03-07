@@ -21,6 +21,7 @@
             <option value="{{ course[0] }}">{{ course[1] }}</option>
             {% endfor %}}
         </select>
+        <div>Course not listed? <a href="/request-course">Request it</a></div>
         <h3>Date of Round:</h3>
         <input type="date" name="date">
         <h3>Number of Shots:</h3>
@@ -36,17 +37,5 @@
         </div>
     </form>
 </div>
-<div>
-    <form action = "/request" method="post">
-        <p>
-            <label>Course Name:</label>
-            <input name="course_name" type="text"></input>
-        </p>
-        <p>
-            <label>Course webpage URL:</label>
-            <input name="course_link" type="text"></input>
-        </p>
-        <button type="submit">Submit Request</button>
-    </form>
-</div>
+
 {% endblock main %}

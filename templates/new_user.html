@@ -5,6 +5,12 @@
 {% endblock title %}
 
 {% block main %} 
+    {% if username_error %}
+    <div>That username is taken. Try another.</div>
+    {% endif %}
+    {% if password_error %}
+    <div>Passwords were not a match. Try again.</div>
+    {% endif %}
     <form action="/new_user" method="post">
         <p>
             <label>Name:</label>
@@ -15,8 +21,12 @@
             <input name="username" type="text" required></input>
         </p>
         <p>
-            <label>Password</label>
+            <label>Password:</label>
             <input name="password" type="password" required></input>
+        </p>
+        <p>
+            <label>Confirm Password:</label>
+            <input name="password_confirm" type="password" required></input>
         </p>
 
         <button type="submit">Create Account</button>

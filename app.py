@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template, redirect, session
 import psycopg2
-from models.models import add_request, get_all_requests, get_rounds, get_five_rounds, get_ten_rounds, submit_scores, login_user, get_course_list, get_course_info, create_new_user, get_course_reviews, add_review_to_db, add_new_course, remove_review_from_db
+from models.models import get_usernames, add_request, get_all_requests, get_rounds, get_five_rounds, get_ten_rounds, submit_scores, login_user, get_course_list, get_course_info, create_new_user, get_course_reviews, add_review_to_db, add_new_course, remove_review_from_db
 from werkzeug.security import generate_password_hash, check_password_hash
 
 def password_generator(password):
@@ -30,10 +30,17 @@ def index():
         for round in ten_rounds:
             total_score_ten += round[0]
             total_putts_ten += round[1]
-        ave_score_five = "{:.1f}".format(total_score_five/len(five_rounds))
-        ave_putts_five = "{:.1f}".format(total_putts_five/len(five_rounds))
-        ave_score_ten = "{:.1f}".format(total_score_ten/len(ten_rounds))
-        ave_putts_ten = "{:.1f}".format(total_putts_ten/len(ten_rounds))
+        if len(five_rounds) > 0:
+            ave_score_five = "{:.1f}".format(total_score_five/len(five_rounds))
+            ave_putts_five = "{:.1f}".format(total_putts_five/len(five_rounds))
+            ave_score_ten = "{:.1f}".format(total_score_ten/len(ten_rounds))
+            ave_putts_ten = "{:.1f}".format(total_putts_ten/len(ten_rounds))
+        else:
+            ave_score_five = 0
+            ave_putts_five = 0
+            ave_score_ten = 0
+            ave_putts_ten = 0
+            stats = 0
         return render_template('home.html', username = session.get('username'), stats = stats, ave_putts_five=ave_putts_five, ave_score_five=ave_score_five, ave_score_ten=ave_score_ten, ave_putts_ten=ave_putts_ten)
     else:
         return render_template('home.html')
@@ -46,12 +53,22 @@ def new_user():
 @app.post('/new_user')
 def user_added():
     #add logic so new user can't take existing username
-    create_new_user(
-        request.form.get('name'),
-        request.form.get('username'),
-        password_generator(request.form.get('password'))
-    )
-    return redirect('/login')
+    usernames = get_usernames()
+    for string in usernames:
+        if request.form.get('username') == string[0]:
+            username_error = True
+            return render_template('new_user.html', username_error=username_error)
+
+    if request.form.get('password') == request.form.get('password_confirm'):
+        create_new_user(
+            request.form.get('name'),
+            request.form.get('username'),
+            password_generator(request.form.get('password'))
+        )
+        return redirect('/login')
+    else:
+        password_error = True
+        return render_template('new_user.html', password_error=password_error)
 
 #user login 
 @app.route('/login')
@@ -191,3 +208,8 @@ def add_request_form():
         request.form.get('course_link')
     )
     return redirect('/play-round')
+
+@app.route('/request-course')
+def new_request():
+    return render_template('new_request.html')
+    
