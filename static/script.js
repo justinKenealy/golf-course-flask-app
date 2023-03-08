@@ -10,11 +10,17 @@ const quotes = [
     "Golf: a 10km walk punctuated with disappointments.",
     "You're the best, by par.",
     "This is all fore the best.",
-    "May the course be with you."
+    "May the course be with you.",
+    "Golf is a day spent in a round of strenuous idleness."
 ]
 const quotesDiv = document.getElementById('golfQuote')
-const selectedQuote = quotes[Math.floor(Math.random()*quotes.length)]
-quotesDiv.innerHTML = `"${selectedQuote}"`
+const generateQuote = function(){
+    const selectedQuote = quotes[Math.floor(Math.random()*quotes.length)]
+    quotesDiv.innerHTML = `"${selectedQuote}"`
+    console.log('hello')
+}
+generateQuote()
+setInterval(generateQuote, 15000)
 
 // functionality to view all rounds on homepage
 const viewAllButton = document.getElementById('viewAll')
