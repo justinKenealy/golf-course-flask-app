@@ -4,69 +4,96 @@
     Home
 {% endblock title %}
 
+{% block stylesheet %} 
+<link rel="stylesheet" href="/static/home.css">
+{% endblock stylesheet %}
+
 {% block main %} 
 {% if session.get('user_id') %}
-<div id="golfQuote"></div>
+
 {% if stats == 0 %}
 <div>You haven't played any rounds! Input your scores to build your stats.</div>
 {% else %}
-<div>
-    <h3>Last round</h3>
-    <ul>
-        <li>{{ stats[0][2] }}</li>
-        <li>Score: 
-            {% if stats[0][4] - stats[0][3] > 0 %}
-                +{{ stats[0][4] - stats[0][3]}}
-                {% elif stats[0][4] - stats[0][3] < 0 %}
-                {{ stats[0][4] - stats[0][3]}}
-                {% else %}
-                Par
-                {% endif %}
-        </li>
-        <li>Putts: {{ stats[0][5] }}</li>
-    </ul>
+<div id="allStatsParent">
+    <div id="lastRound" class="statsRender">
+        <div class="arrow leftArrow">&larr;</div>
+        <!-- <img src="/img/leftarrow.png">
+        <img src="/img/rightarrow.png"> -->
+        <div class="statsRenderContainer">
+            <h3 class="statsRenderh3">Last round</h3>
+            <div class="courseName">{{ stats[0][2] }}</div>
+            <div class="scoreDiv">Score: 
+                {% if stats[0][4] - stats[0][3] > 0 %}
+                    +{{ stats[0][4] - stats[0][3]}}
+                    {% elif stats[0][4] - stats[0][3] < 0 %}
+                    {{ stats[0][4] - stats[0][3]}}
+                    {% else %}
+                    Par
+                    {% endif %}
+            </div>
+            <div class="puttsDiv">Putts: {{ stats[0][5] }}</div>
+        </div>
+        <div class="arrow rightArrow">&rarr;</div>
+    </div>
+    <div id="lastThree" class="statsRender">
+        <div class="arrow leftArrow">&larr;</div>
+        <div class="statsRenderContainer">
+            <h3 class="statsRenderh3">Last 3 rounds</h3>
+            <div class="scoreDiv">Average Score: {{ ave_score_three }}</div>
+            <div class="puttsDiv">Average Putts: {{ ave_putts_three }}</div>
+        </div>
+        <div class="arrow rightArrow">&rarr;</div>
+    </div>
+    <div id="lastFive" class="statsRender">
+        <div class="arrow leftArrow">&larr;</div>
+        <div class="statsRenderContainer">
+            <h3 class="statsRenderh3">Last 5 rounds</h3>
+            <div class="scoreDiv">Average Score: {{ ave_score_five }}</div>
+            <div class="puttsDiv">Average Putts: {{ ave_putts_five }}</div>
+        </div>
+        <div class="arrow rightArrow">&rarr;</div>
+    </div>
+    <div id="lastTen" class="statsRender">
+        <div class="arrow leftArrow">&larr;</div>
+        <div class="statsRenderContainer">
+            <h3 class="statsRenderh3">Last 10 rounds</h3>
+            <div class="scoreDiv">Average Score: {{ ave_score_ten }}</div>
+            <div class="puttsDiv">Average Putts: {{ ave_putts_ten }}</div>
+        </div>
+        <div class="arrow rightArrow">&rarr;</div>
+    </div>
 </div>
-<div>
-    <h3>Last 5 rounds</h3>
-    <ul>
-        <li>Score: {{ ave_score_five }}</li>
-        <li>Putts: {{ ave_putts_five }}</li>
-    </ul>
+<button id="viewAll">View All Rounds</button>
+<div id="allRounds">
+    <span id="closeAllRounds">X</span>
+    <table id="allRoundsTable">
+        <thead>
+            <th>Date</th>
+            <th>Course</th>
+            <th>Strokes</th>
+            <th>Score</th>
+            <th>Putts</th>
+        </thead>
+        <tbody>
+            {% for round in stats %}
+                <tr class="allRoundsRow">
+                    <td>{{ round[6] }}</td>
+                    <td>{{ round[2] }}</td>
+                    <td>{{ round[4] }}</td>
+                    {% if round[4] - round[3] > 0 %}
+                    <td>+{{ round[4] - round[3]}}</td>
+                    {% elif round[4] - round[3] < 0 %}
+                    <td>{{ round[4] - round[3]}}</td>
+                    {% else %}
+                    <td>Par</td>
+                    {% endif %}
+                    <td>{{ round[5] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
-<div>
-    <h3>Last 10 rounds</h3>
-    <ul>
-        <li>Score: {{ ave_score_ten }}</li>
-        <li>Putts: {{ ave_putts_ten }}</li>
-    </ul>
-</div>
-<button>View All Rounds</button>
-<table>
-    <thead>
-        <th>Date</th>
-        <th>Course</th>
-        <th>Strokes</th>
-        <th>Score</th>
-        <th>Putts</th>
-    </thead>
-    <tbody>
-        {% for round in stats %}
-            <tr>
-                <td>{{ round[6] }}</td>
-                <td>{{ round[2] }}</td>
-                <td>{{ round[4] }}</td>
-                {% if round[4] - round[3] > 0 %}
-                <td>+{{ round[4] - round[3]}}</td>
-                {% elif round[4] - round[3] < 0 %}
-                <td>{{ round[4] - round[3]}}</td>
-                {% else %}
-                <td>Par</td>
-                {% endif %}
-                <td>{{ round[5] }}</td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
 {% endif %}
+<div id="golfQuote"></div>
 {% endif %}
 {% endblock main %}

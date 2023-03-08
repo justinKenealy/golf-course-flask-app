@@ -8,19 +8,21 @@
     <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-    <h1>Golf Buddy</h1>
-    <nav>
-        <div class="nav">
-            <a href="/">Home</a>
-        </div>
-    </nav>
+    <div id="header">
+        <h1>Golf Buddy</h1>
+        <nav class="nav">
+                <a href="/">Home</a>
+        </nav>
+    </div>
     <main>
-        <form action="/login" method="POST">
-            <label for="username">Enter Username:</label>
-            <input name="username" type="text"></input>
-            <input type="password" name="password"></input>
-            <button type="submit">Login</button>
-        </form>
+        <div id="loginForm">
+            <form action="/login" method="POST">
+                <label for="username">Enter Username:</label>
+                <input name="username" type="text"></input>
+                <input type="password" name="password"></input>
+                <button type="submit">Login</button>
+            </form>
+            </div>
         {% if incorrect %}
         <div id="incorrect">Incorrect username or password, try again</div>
         {% endif %}

@@ -5,6 +5,7 @@
 {% endblock title %}
 
 {% block main %} 
+<div id="addCourseDiv">
     <h3>Enter New Course Details Below</h3>
     <form action="/add-course" method="post">
         <p>
@@ -16,7 +17,7 @@
             <input name="description" type="text"></input>
         </p>
         <p>
-            <label>Par Score</label>
+            <label>Par Score:</label>
             <input name="par" type="number" min="60" max="80" step="1"></input>
         </p>
         <p>
@@ -33,4 +34,5 @@
         </p>
         <button type="submit">Add Course</button>
     </form>
+</div>
 {% endblock main %}

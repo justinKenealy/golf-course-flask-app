@@ -5,6 +5,7 @@
 {% endblock title %}
 
 {% block main %} 
+<div id="courseRenderer">
 <form action = "/courses" method="post" id="courseform">
     <h3>Select a course:</h3>
     <select name="courses" id="courses" form="courseform">
@@ -15,12 +16,14 @@
     </select>
     <button type="submit">View Course</button>
 </form>
-{% if session_course_id %}
+{% if session['username'] %}
 <div>Course not listed? <a href="/request-course">Request it</a></div>
-<img src="{{course_info[5]}}">
+{% endif %}
+{% if session_course_id %}
 <h2>{{course_info[1]}}</h2>
+<img class="courseLogoImg" src="{{course_info[5]}}">
 <h4>Par {{course_info[4]}}</h4>
-<p>{{course_info[3]}}</p>
+<p id="courseDescription">{{course_info[3]}}</p>
 <div><a href="{{course_info[2]}}">Visit {{course_info[1]}} webpage.</a></div>
 <img class="courseImg" src="{{course_info[6]}}">
 <!-- <h4>Hole Layout</h4>
@@ -48,8 +51,6 @@
         <p>
             <label>Review:</label>
             <input name="review" type="text" style="width: 40%;"></input>
-        </p>
-        <p>
             <label>Rating:</label>
             <input name="rating" type="number" min="0" max="10" step="1"></input>
         </p>
@@ -62,5 +63,5 @@
     <div class="canNotLeaveReview">Login or create an account to leave a review.</div>
     {% endif %}
 {% endif %}
-
+</div>
 {% endblock main %}

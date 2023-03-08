@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template, redirect, session
 import psycopg2
-from models.models import get_usernames, add_request, get_all_requests, get_rounds, get_five_rounds, get_ten_rounds, submit_scores, login_user, get_course_list, get_course_info, create_new_user, get_course_reviews, add_review_to_db, add_new_course, remove_review_from_db
+from models.models import get_usernames, add_request, get_all_requests, get_rounds, get_three_rounds, get_five_rounds, get_ten_rounds, submit_scores, login_user, get_course_list, get_course_info, create_new_user, get_course_reviews, add_review_to_db, add_new_course, remove_review_from_db
 from werkzeug.security import generate_password_hash, check_password_hash
 
 def password_generator(password):
@@ -18,12 +18,18 @@ if __name__ == "__main__":
 def index():
     if session.get('username'):
         stats = get_rounds(session.get('user_id'))
+        three_rounds = get_three_rounds(session.get('user_id'))
         five_rounds = get_five_rounds(session.get('user_id'))
         ten_rounds = get_ten_rounds(session.get('user_id'))
+        total_score_three = 0
+        total_putts_three = 0
         total_score_five = 0
         total_score_ten = 0
         total_putts_five = 0
         total_putts_ten = 0
+        for round in three_rounds:
+            total_score_three += round[0]
+            total_putts_three += round[1]
         for round in five_rounds:
             total_score_five += round[0]
             total_putts_five += round[1]
@@ -31,6 +37,8 @@ def index():
             total_score_ten += round[0]
             total_putts_ten += round[1]
         if len(five_rounds) > 0:
+            ave_score_three = "{:.1f}".format(total_score_three/len(three_rounds))
+            ave_putts_three = "{:.1f}".format(total_putts_three/len(three_rounds))
             ave_score_five = "{:.1f}".format(total_score_five/len(five_rounds))
             ave_putts_five = "{:.1f}".format(total_putts_five/len(five_rounds))
             ave_score_ten = "{:.1f}".format(total_score_ten/len(ten_rounds))
@@ -41,7 +49,7 @@ def index():
             ave_score_ten = 0
             ave_putts_ten = 0
             stats = 0
-        return render_template('home.html', username = session.get('username'), stats = stats, ave_putts_five=ave_putts_five, ave_score_five=ave_score_five, ave_score_ten=ave_score_ten, ave_putts_ten=ave_putts_ten)
+        return render_template('home.html', username = session.get('username'), stats = stats, ave_putts_three=ave_putts_three, ave_score_three=ave_score_three, ave_putts_five=ave_putts_five, ave_score_five=ave_score_five, ave_score_ten=ave_score_ten, ave_putts_ten=ave_putts_ten)
     else:
         return render_template('home.html')
 

@@ -11,6 +11,7 @@ body{
 }
 
 h1 {
+    padding-top: 5px;
     color: white;
 }
 
@@ -34,28 +35,21 @@ h1 {
     width: 80%
 }
 
-.courseLogoImg{
-    width: 75px;
-}
-
 .reviewDiv{
     border: 1px solid black;
     width: 60%;
-    margin: 0 auto 10px auto;
+    margin-bottom: 10px;
     padding: 5px;
-}
-
-#courseDescription{
-    width: 65%;
-    margin: 10px auto 25px auto;
 }
 
 #allRounds{
     display: none;
     width: 50%;
+    min-width: 500px;
     position: fixed;
-    top: 25%;
-    left: 25%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     margin: 0 auto;
     background-color: white;
     border: 5px solid black;
@@ -96,41 +90,42 @@ h1 {
     display: grid;
     width: 300px;
     grid-template-columns: 100%;
-    grid-template-rows: 80px 25% 15% 15%;
+    grid-template-rows: 70px 25% 15% 15%;
     height: 235px;
-    border-radius: 20px;
     align-items: center;
-    background-color: rgba(255, 255, 255, 0.874) 
+    background-color: rgba(255, 255, 255, 0.90) 
 }
 
 .statsRenderh3{
     font-size: 20px;
+    margin-top: 50px;
 }
 
 .statsRenderContainer .courseName{
-    color: red;
+    color: rgb(0, 0, 0);
     font-size: 25px;
 }
 
 .statsRenderContainer .scoreDiv{
-    color: green;
+    color: rgb(0, 105, 0);
     font-size: 20px;
 }
 
 .statsRenderContainer .puttsDiv{
-    color: blue;
+    color: rgb(0, 105, 0);
     font-size: 20px;
 }
 
 .arrow {
     font-size: 35px;
-    background-color: rgb(0, 255, 51);
-    border-radius: 50%;
+    background-color: rgb(255, 255, 255);
+    border-radius: 15px;
     cursor: pointer;
 }
 
 .arrow:hover {
-    background-color: orange;
+    background-color: black;
+    color: white;
 }
 
 #lastThree{
@@ -147,11 +142,14 @@ h1 {
 
 #golfQuote{
     display: block;
-    width: 100%;
-    background-color: rgba(255, 255, 255, 0.874);
+    width: 90%;
+    background-color: rgba(0, 0, 0, 0.388);
     padding: 25px;
-    position: sticky;
+    position: fixed;
     bottom: 0px;
+    left: 5%;
+    color: white;
+    font-size: 18px;
 }
 
 #header{
@@ -166,66 +164,21 @@ h1 {
     font-size: 18px;
 }
 
-#logout, #viewAll{
-    border-radius: 0;
-    background-color: rgb(255, 255, 255);
-    border: 1px solid black;
-    padding: 3px;
-}
-
-#logout:hover, #viewAll:hover{
-    cursor: pointer;
-}
-
-
-#loginForm{
-    margin: 0 auto;
-    margin-top: 50px;
-}
-
-#loginForm label{
-    background-color: rgba(255, 255, 255, 0.83);
-    padding: 3px;
-}
-
-button{
+#logout, #viewAll, .noAccountYet button{
     border-radius: 0;
     background-color: rgb(255, 255, 255);
     border: 1px solid black;
     padding: 3px 7px 3px 7px;
 }
 
-button:hover{
+#logout:hover, #viewAll:hover, .noAccountYet button:hover{
     cursor: pointer;
 }
 
-#addCourseDiv, #playRound{
-    background-color: rgba(255, 255, 255, 0.90);
-    width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-#courseRenderer{
-    background-color: rgba(255, 255, 255, 0.90);
-    width: 80%;
-    margin: 0 auto;
-}
-
-#addCourseDiv p{
-    text-align: left;
-    padding-left: 10px;
-}
-
-#addCourseDiv input{
-    margin-left: 15px;
-    text-align: left;
+.noAccountYet{
+    margin-top: 30px;
 }
 
 input{
     text-align: left;
-}
-
-#playSubmit, #courseNotListed {
-    padding-top: 20px;
 }

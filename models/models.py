@@ -54,6 +54,12 @@ def get_rounds(user_id):
     )
     return info
 
+def get_three_rounds(user_id):
+    info = sql_select(
+        'SELECT total_score - par_score AS score, total_putts FROM rounds JOIN courses on courses.id = rounds.course_id WHERE user_id = %s ORDER BY round_date DESC LIMIT 3', [user_id] 
+    )
+    return info
+
 def get_five_rounds(user_id):
     info = sql_select(
         'SELECT total_score - par_score AS score, total_putts FROM rounds JOIN courses on courses.id = rounds.course_id WHERE user_id = %s ORDER BY round_date DESC LIMIT 5', [user_id] 

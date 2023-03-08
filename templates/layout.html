@@ -5,13 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Golf Buddy - {% block title %} {% endblock title %}</title>
+    {% block stylesheet %}
     <link rel="stylesheet" href="/static/styles.css">
+    {% endblock stylesheet %}
 </head>
 <body>
+    <div id="header">
     <h1>Golf Buddy</h1>
     {% block nav %}
-    <nav>
-        <div class="nav">
+    <nav class="nav">
             <a href="/">Home</a>
             <a href="/courses">Courses</a>
             {% if session.get('admin') %}
@@ -21,24 +23,30 @@
             {% if session.get('user_id') %}
             <a href="/play-round">Play Round</a>
             {% endif %}
-        </div>
     </nav>
     {% endblock nav %}
     <main>
+    </div>
+    <div id="welcome">
         {% block welcome %}
         {% if session.get('user_id') %}
         <p>
             <form action = "/logout" method="post">
                 <span>Hello {{ session.get('username') }}!</span>
-                <button type="submit">Logout</button>
+                <button id="logout" type="submit">Logout</button>
             </form>
         </p> 
         {% else %}
-        <a href="/login"><button>Log In</button></a>
-        <a href="/signup"><button>Sign Up</button></a>
+        <div class="noAccountYet">
+            <a href="/login"><button>Log In</button></a>
+            <a href="/signup"><button>Sign Up</button></a>
+        </div>
         {% endif %}
         {% endblock welcome %}
+    </div>
+    <div id="content">
         {% block main %} {% endblock main %}
+    </div>
     </main>
     <script src="/static/script.js"></script>
 </body>
