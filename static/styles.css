@@ -12,6 +12,7 @@ body{
 
 h1 {
     color: white;
+    padding-top: 5px;
 }
 
 .nav a{
@@ -50,110 +51,6 @@ h1 {
     margin: 10px auto 25px auto;
 }
 
-#allRounds{
-    display: none;
-    width: 50%;
-    position: fixed;
-    top: 25%;
-    left: 25%;
-    margin: 0 auto;
-    background-color: white;
-    border: 5px solid black;
-    min-height: 200px;
-}
-
-#allRoundsTable{
-    margin: 0 auto;
-    padding: 30px 15px 15px 15px;
-}
-
-.allRoundsRow{
-    height: 20px;
-}
-
-#closeAllRounds {
-    cursor: pointer;
-    padding: 12px 16px;
-    position: absolute;
-    top: 1px;
-    right: 1px;
-    font-family: sans-serif;
-}
-  
-#closeAllRounds:hover {background: #bbb;}
-
-.statsRender{
-    width: 450px;
-    height: 240px;
-    margin: 25px auto; 
-    display: grid;
-    grid-template-columns: 10% 80% 10%;
-    align-items: center;
-}
-
-.statsRenderContainer{
-    margin: 0 auto;
-    display: grid;
-    width: 300px;
-    grid-template-columns: 100%;
-    grid-template-rows: 80px 25% 15% 15%;
-    height: 235px;
-    border-radius: 20px;
-    align-items: center;
-    background-color: rgba(255, 255, 255, 0.874) 
-}
-
-.statsRenderh3{
-    font-size: 20px;
-}
-
-.statsRenderContainer .courseName{
-    color: red;
-    font-size: 25px;
-}
-
-.statsRenderContainer .scoreDiv{
-    color: green;
-    font-size: 20px;
-}
-
-.statsRenderContainer .puttsDiv{
-    color: blue;
-    font-size: 20px;
-}
-
-.arrow {
-    font-size: 35px;
-    background-color: rgb(0, 255, 51);
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-.arrow:hover {
-    background-color: orange;
-}
-
-#lastThree{
-    display: none;
-}
-
-#lastFive{
-    display: none;
-}
-
-#lastTen{
-    display: none;
-}
-
-#golfQuote{
-    display: block;
-    width: 100%;
-    background-color: rgba(255, 255, 255, 0.874);
-    padding: 25px;
-    position: sticky;
-    bottom: 0px;
-}
-
 #header{
     background-color: rgba(0, 0, 0, 0.488);
     width: 90%;
@@ -177,15 +74,9 @@ h1 {
     cursor: pointer;
 }
 
-
 #loginForm{
     margin: 0 auto;
-    margin-top: 50px;
-}
-
-#loginForm label{
-    background-color: rgba(255, 255, 255, 0.83);
-    padding: 3px;
+    padding: 20px 0 15px 0;
 }
 
 button{
@@ -212,6 +103,64 @@ button:hover{
     margin: 0 auto;
 }
 
+#signUpDiv{
+    background-color: rgba(255, 255, 255, 0.90);
+    width: 30%;
+    min-width: 220px;
+    margin: 15px auto;
+    text-align: left;
+    padding: 15px;
+}
+
+#loginFormContainer{
+    background-color: rgba(255, 255, 255, 0.90);
+    width: 40%;
+    min-width: 220px;
+    margin: 15px auto;
+    padding-bottom: 15px;
+}
+
+#requestCourseForm{
+    background-color: rgba(255, 255, 255, 0.90);
+    width: 75%;
+    min-width: 600px;
+    margin: 15px auto;
+    padding-bottom: 15px;
+}
+
+#requestCourseForm h3{
+    padding: 20px 0 10px 0;
+}
+
+#listOfRequests{
+    background-color: rgba(255, 255, 255, 0.90);
+    width: 65%;
+    min-width: 450px;
+    margin: 15px auto;
+    padding-bottom: 15px;
+}
+
+#listOfRequests h3{
+    padding-top: 20px;
+}
+
+#listOfRequests Ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#listOfRequests a{
+    color: rgb(0, 111, 0);
+}
+
+#listOfRequests li{
+    padding: 5px;
+}
+
+#signUpDiv p {
+    text-align: center;
+}
+
 #addCourseDiv p{
     text-align: left;
     padding-left: 10px;
@@ -228,4 +177,32 @@ input{
 
 #playSubmit, #courseNotListed {
     padding-top: 20px;
+}
+
+#courseNotListed {
+    padding-bottom: 10px;
+}
+
+#courseRenderer h3{
+    padding-top: 10px;
+}
+
+#submitReview{
+    margin: 10px 0 20px 0;
+}
+
+#leaveReviewForm{
+    padding-top: 10px;
+}
+
+#courseWebpageLink{
+    padding-bottom: 10px;
+}
+
+#canNotLeaveReview{
+    padding: 10px 0 25px 0;
+}
+
+.noAccountYet{
+    margin-top: 25px;
 }

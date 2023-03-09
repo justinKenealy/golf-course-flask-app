@@ -4,7 +4,14 @@
     Create Account
 {% endblock title %}
 
+{% block welcome %}
+<div class="noAccountYet">
+    <a href="/login"><button>Log In</button></a>
+</div>
+{% endblock welcome %}
+
 {% block main %} 
+<div id="signUpDiv">
     {% if username_error %}
     <div>That username is taken. Try another.</div>
     {% endif %}
@@ -14,21 +21,26 @@
     <form action="/new_user" method="post">
         <p>
             <label>Name:</label>
+            <br>
             <input name="name" type="text" required></input>
         </p>
         <p>
             <label>Username:</label>
+            <br>
             <input name="username" type="text" required></input>
         </p>
         <p>
             <label>Password:</label>
+            <br>
             <input name="password" type="password" required></input>
         </p>
         <p>
             <label>Confirm Password:</label>
+            <br>
             <input name="password_confirm" type="password" required></input>
         </p>
 
         <button type="submit">Create Account</button>
     </form>
+</div>
 {% endblock main %}

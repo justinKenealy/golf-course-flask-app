@@ -15,17 +15,26 @@
         </nav>
     </div>
     <main>
-        <div id="loginForm">
-            <form action="/login" method="POST">
-                <label for="username">Enter Username:</label>
-                <input name="username" type="text"></input>
-                <input type="password" name="password"></input>
-                <button type="submit">Login</button>
-            </form>
+        <div id="loginFormContainer">
+            <div id="loginForm">
+                <form action="/login" method="POST">
+                    <p>
+                        <label>Username:</label>
+                        <br>
+                        <input name="username" type="text" required></input>
+                    </p>
+                    <p>
+                        <label>Password:</label>
+                        <br>
+                        <input name="password" type="password" required></input>
+                    </p>
+                    <button type="submit">Login</button>
+                </form>
             </div>
-        {% if incorrect %}
-        <div id="incorrect">Incorrect username or password, try again</div>
-        {% endif %}
+            {% if incorrect %}
+            <div id="incorrect">Incorrect username or password, try again</div>
+            {% endif %}
+        </div>
     </main>
 </body>
 </html>

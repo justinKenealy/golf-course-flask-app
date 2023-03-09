@@ -45,7 +45,7 @@ h1 {
 #allRounds{
     display: none;
     width: 50%;
-    min-width: 500px;
+    min-width: 600px;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -58,7 +58,16 @@ h1 {
 
 #allRoundsTable{
     margin: 0 auto;
-    padding: 30px 15px 15px 15px;
+    padding: 20px 10px 15px 10px;
+}
+
+#allRoundsTable th{
+    margin: 0 15px 0 15px;
+    padding: 0px 15px 15px 15px;
+}
+
+#allRoundsTable td{
+    padding: 0 5px;
 }
 
 .allRoundsRow{
@@ -176,7 +185,7 @@ h1 {
 }
 
 .noAccountYet{
-    margin-top: 30px;
+    margin-top: 25px;
 }
 
 input{
