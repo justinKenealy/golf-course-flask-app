@@ -194,6 +194,7 @@ input{
 
 #leaveReviewForm{
     padding-top: 10px;
+    margin-bottom: 10px;
 }
 
 #courseWebpageLink{
@@ -219,4 +220,17 @@ input{
 
 #backToCourses{
     margin-top: 10px;
+}
+
+#removeCourseButton{
+    margin-bottom: 15px;
+}
+
+#removeConfirm{
+    margin-bottom: 15px;
+    display: none;
+}
+
+#removeConfirm button{
+    margin: 0 5px;
 }

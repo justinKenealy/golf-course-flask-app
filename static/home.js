@@ -93,3 +93,4 @@ for (let arrow of leftArrows){
 for (let arrow of rightArrows){
     arrow.addEventListener('click', displayCounterPlus)
 }
+

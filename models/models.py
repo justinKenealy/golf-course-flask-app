@@ -41,6 +41,27 @@ def add_new_course(name, link, description, par, logo, img):
     )
     return
 
+def edit_course(name, description, par_score, logo, image, link, id):
+    sql_write(
+        'UPDATE courses SET name = %s, course_description = %s, par_score = %s, logo_image = %s, course_image = %s, web_link = %s WHERE id = %s;',
+        [name, description, par_score, logo, image, link, id]
+    )
+
+def remove_course_from_db(id):
+    sql_write(
+        'DELETE FROM courses WHERE id = %s', [id]
+    )
+
+def remove_rounds_with_course(id):
+    sql_write(
+        'DELETE FROM rounds WHERE course_id = %s', [id]
+    )
+
+def remove_reviews_with_course(id):
+    sql_write(
+        'DELETE FROM reviews WHERE course_id = %s', [id]
+    )
+
 def submit_scores(user_id, course_id, total_score, total_putts, date):
     sql_write(
         'INSERT INTO rounds(user_id, course_id, total_score, total_putts, round_date) VALUES (%s, %s, %s, %s, %s);',

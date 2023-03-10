@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template, redirect, session
 import psycopg2
-from models.models import get_usernames, add_request, get_all_requests, get_rounds, get_three_rounds, get_five_rounds, get_ten_rounds, submit_scores, login_user, get_course_list, get_course_info, create_new_user, get_course_reviews, add_review_to_db, add_new_course, remove_review_from_db
+from models.models import get_usernames, remove_rounds_with_course, remove_reviews_with_course, remove_course_from_db, add_request, get_all_requests, edit_course, get_rounds, get_three_rounds, get_five_rounds, get_ten_rounds, submit_scores, login_user, get_course_list, get_course_info, create_new_user, get_course_reviews, add_review_to_db, add_new_course, remove_review_from_db
 from werkzeug.security import generate_password_hash, check_password_hash
 
 def password_generator(password):
@@ -147,7 +147,11 @@ def course_selected():
         user_id = session['user_id']
     else:
         user_id = None
-    return render_template('courses.html', session_course_id = session['course_id'], selected_course_id = selected_course_id, user_id = user_id, course_list = course_list, course_info=course_info, reviews=reviews)
+    reviewed = False
+    for review in reviews:
+        if review[3] == session.get('user_id'):
+            reviewed = True 
+    return render_template('courses.html', session_course_id = session['course_id'], selected_course_id = selected_course_id, user_id = user_id, course_list = course_list, course_info=course_info, reviews=reviews, reviewed = reviewed)
 
 @app.post('/leave-review')
 def leave_review():
@@ -230,5 +234,22 @@ def edit_page():
 
 @app.post('/edited-course')
 def edited_course():
-    #add edit functionality
+    edit_course(
+        request.form.get('name'),
+        request.form.get('description'),
+        request.form.get('par'),
+        request.form.get('logo'),
+        request.form.get('image'),
+        request.form.get('link'),
+        session.get('course_id')
+    )
+    return redirect('/courses')
+
+#remove course & rounds & reviews
+@app.route('/remove-course')
+def remove_course():
+    remove_rounds_with_course(session.get('course_id'))
+    remove_reviews_with_course(session.get('course_id'))
+    remove_course_from_db(session.get('course_id'))
+    session.pop('course_id')
     return redirect('/courses')
