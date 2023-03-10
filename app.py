@@ -220,4 +220,15 @@ def add_request_form():
 @app.route('/request-course')
 def new_request():
     return render_template('new_request.html')
-    
+
+#edit course
+@app.route('/edit')
+def edit_page():
+    print(session.get('course_id'))
+    info = get_course_info(session.get('course_id'))[0]
+    return render_template('edit_course.html', info=info)
+
+@app.post('/edited-course')
+def edited_course():
+    #add edit functionality
+    return redirect('/courses')

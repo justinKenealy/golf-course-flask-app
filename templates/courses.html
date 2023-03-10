@@ -21,13 +21,15 @@
 {% endif %}
 {% if session_course_id %}
 <h2>{{course_info[1]}}</h2>
+{% if session['admin'] %}
+<div id="editCourseButton"><a href='/edit'><button>Edit Course</button></a></div>
+{% endif %}
 <img class="courseLogoImg" src="{{course_info[5]}}">
 <h4>Par {{course_info[4]}}</h4>
 <p id="courseDescription">{{course_info[3]}}</p>
 <div id="courseWebpageLink"><a href="{{course_info[2]}}">Visit {{course_info[1]}} webpage.</a></div>
 <img class="courseImg" src="{{course_info[6]}}">
-<!-- <h4>Hole Layout</h4>
-<div>{{course_info[8]}}</div> -->
+
 <h4>Reviews:</h4>
     {% if reviews %}
     {% for review in reviews %}

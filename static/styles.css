@@ -36,7 +36,8 @@ h1 {
 }
 
 .courseLogoImg{
-    width: 75px;
+    max-width: 150px;
+    max-height: 150px;
 }
 
 .reviewDiv{
@@ -205,4 +206,17 @@ input{
 
 .noAccountYet{
     margin-top: 25px;
+}
+
+#editCourseButton {
+    margin: 10px 0;
+}
+
+.reviewDiv div{
+    text-align: left !important;
+    padding: 5px;
+}
+
+#backToCourses{
+    margin-top: 10px;
 }

@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block title %} 
+    Add Course
+{% endblock title %}
+
+{% block main %} 
+<div id="addCourseDiv">
+    <h3>Edit Course Details:</h3>
+    <form action="/edited-course" method="post">
+        <p>
+            <label>Course Name:</label>
+            <input name="name" type="text" value="{{info[1]}}"></input>
+        </p>
+        <p>
+            <label>Course Description:</label>
+            <input name="description" type="text" value="{{info[3]}}"></input>
+        </p>
+        <p>
+            <label>Par Score:</label>
+            <input name="par" type="number" min="60" max="80" step="1" value="{{info[4]}}"></input>
+        </p>
+        <p>
+            <label>Course Logo URL:</label>
+            <input name="logo" type="text" value="{{info[5]}}"></input>
+        </p>
+        <p>
+            <label>Course Image URL:</label>
+            <input name="image" type="text" value="{{info[6]}}"></input>
+        </p>
+        <p>
+            <label>Course webpage URL:</label>
+            <input name="link" type="text" value="{{info[2]}}"></input>
+        </p>
+        <button type="submit">Edit Course</button>
+    </form>
+    <a href="/courses"><button id="backToCourses">Back</button></a>
+</div>
+{% endblock main %}
