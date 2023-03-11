@@ -12,7 +12,7 @@
 {% if session.get('user_id') %}
 
 {% if stats == 0 %}
-<div>You haven't played any rounds! Input your scores to build your stats.</div>
+<div id="noRounds">You haven't played any rounds! <br>Input your scores to build your stats.</div>
 {% else %}
 <div id="allStatsParent">
     <div id="lastRound" class="statsRender">
@@ -39,7 +39,7 @@
         <div class="arrow leftArrow">&larr;</div>
         <div class="statsRenderContainer">
             <h3 class="statsRenderh3">Last 3 rounds</h3>
-            <div class="scoreDiv">Average Score: {{ ave_score_three }}</div>
+            <div class="scoreDiv">Average Score: {% if ave_score_three > 0 %} +{{ ave_score_three }}{% else %} {{ ave_score_three }}{% endif %}</div>
             <div class="puttsDiv">Average Putts: {{ ave_putts_three }}</div>
         </div>
         <div class="arrow rightArrow">&rarr;</div>
@@ -48,7 +48,7 @@
         <div class="arrow leftArrow">&larr;</div>
         <div class="statsRenderContainer">
             <h3 class="statsRenderh3">Last 5 rounds</h3>
-            <div class="scoreDiv">Average Score: {{ ave_score_five }}</div>
+            <div class="scoreDiv">Average Score: {% if ave_score_five > 0 %} +{{ ave_score_five }}{% else %} {{ ave_score_five }}{% endif %}</div>
             <div class="puttsDiv">Average Putts: {{ ave_putts_five }}</div>
         </div>
         <div class="arrow rightArrow">&rarr;</div>
@@ -57,7 +57,7 @@
         <div class="arrow leftArrow">&larr;</div>
         <div class="statsRenderContainer">
             <h3 class="statsRenderh3">Last 10 rounds</h3>
-            <div class="scoreDiv">Average Score: {{ ave_score_ten }}</div>
+            <div class="scoreDiv">Average Score: {% if ave_score_ten > 0 %} +{{ ave_score_ten }}{% else %} {{ ave_score_ten }}{% endif %}</div>
             <div class="puttsDiv">Average Putts: {{ ave_putts_ten }}</div>
         </div>
         <div class="arrow rightArrow">&rarr;</div>

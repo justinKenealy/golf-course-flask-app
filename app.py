@@ -37,17 +37,19 @@ def index():
             total_score_ten += round[0]
             total_putts_ten += round[1]
         if len(five_rounds) > 0:
-            ave_score_three = "{:.1f}".format(total_score_three/len(three_rounds))
+            ave_score_three = float("{:.1f}".format(total_score_three/len(three_rounds)))
             ave_putts_three = "{:.1f}".format(total_putts_three/len(three_rounds))
-            ave_score_five = "{:.1f}".format(total_score_five/len(five_rounds))
+            ave_score_five = float("{:.1f}".format(total_score_five/len(five_rounds)))
             ave_putts_five = "{:.1f}".format(total_putts_five/len(five_rounds))
-            ave_score_ten = "{:.1f}".format(total_score_ten/len(ten_rounds))
+            ave_score_ten = float("{:.1f}".format(total_score_ten/len(ten_rounds)))
             ave_putts_ten = "{:.1f}".format(total_putts_ten/len(ten_rounds))
         else:
             ave_score_five = 0
             ave_putts_five = 0
             ave_score_ten = 0
             ave_putts_ten = 0
+            ave_putts_three = 0
+            ave_score_three = 0
             stats = 0
         return render_template('home.html', username = session.get('username'), stats = stats, ave_putts_three=ave_putts_three, ave_score_three=ave_score_three, ave_putts_five=ave_putts_five, ave_score_five=ave_score_five, ave_score_ten=ave_score_ten, ave_putts_ten=ave_putts_ten)
     else:
