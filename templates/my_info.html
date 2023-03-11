@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block title %} 
+    My Info
+{% endblock title %}
+
+{% block main %} 
+<div id="myInfo">
+    <form action="/" method="post">
+        <p>
+            <label>Name:</label>
+            <br>
+            <input name="name" type="text" required value={{info[1]}}></input>
+        </p>
+        <p>
+            <label>Username:</label>
+            <br>
+            <input name="username" type="text" required value={{info[2]}}></input>
+        </p>
+        <button type="submit">Edit Account</button>
+    </form>
+</div>
+<div id="myPassword">
+    <form action="/" method="post">
+        <p>
+            <label>Password:</label>
+            <br>
+            <input name="password" type="password" required></input>
+        </p>
+        <p>
+            <label>Confirm Password:</label>
+            <br>
+            <input name="password_confirm" type="password" required></input>
+        </p>
+        <button type="submit">Change Password</button>
+    </form>
+</div>
+
+{% endblock main %}

@@ -19,7 +19,7 @@ const generateQuote = function(){
     quotesDiv.innerHTML = `"${selectedQuote}"`
 }
 generateQuote()
-setInterval(generateQuote, 15000)
+setInterval(generateQuote, 10000)
 
 // functionality to view all rounds on homepage
 const viewAllButton = document.getElementById('viewAll')

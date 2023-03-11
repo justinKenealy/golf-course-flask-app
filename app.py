@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template, redirect, session
 import psycopg2
-from models.models import get_usernames, remove_request_from_db, remove_rounds_with_course, remove_reviews_with_course, remove_course_from_db, add_request, get_all_requests, edit_course, get_rounds, get_three_rounds, get_five_rounds, get_ten_rounds, submit_scores, login_user, get_course_list, get_course_info, create_new_user, get_course_reviews, add_review_to_db, add_new_course, remove_review_from_db
+from models.models import get_usernames, get_user_info, remove_request_from_db, remove_rounds_with_course, remove_reviews_with_course, remove_course_from_db, add_request, get_all_requests, edit_course, get_rounds, get_three_rounds, get_five_rounds, get_ten_rounds, submit_scores, login_user, get_course_list, get_course_info, create_new_user, get_course_reviews, add_review_to_db, add_new_course, remove_review_from_db
 from werkzeug.security import generate_password_hash, check_password_hash
 
 def password_generator(password):
@@ -102,6 +102,21 @@ def login():
         incorrect = True
         return render_template('login_form.html', incorrect = incorrect)
 
+#user myInfo page
+@app.route('/myinfo')
+def user_info():
+    info = get_user_info(session.get('user_id'))[0]
+    #add password function
+    return render_template('my_info.html', info = info)
+
+# @app.post('/change-details')
+# def change_details():
+#     return render_template('my_info.html')
+
+# @app.post('/change-password')
+# def change_password():
+#     return render_template('my_info.html')
+
 #user logout
 @app.post('/logout')
 def logout_user():
@@ -141,7 +156,6 @@ def course_render():
 def course_selected():
     selected_course_id = request.form.get('courses')
     session['course_id'] = selected_course_id
-    print(selected_course_id)
     course_info = get_course_info(selected_course_id)[0]
     course_list = get_course_list()
     reviews = get_course_reviews(course_info[0])
@@ -235,7 +249,6 @@ def new_request():
 #edit course
 @app.route('/edit')
 def edit_page():
-    print(session.get('course_id'))
     info = get_course_info(session.get('course_id'))[0]
     return render_template('edit_course.html', info=info)
 

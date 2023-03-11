@@ -4,6 +4,10 @@ def login_user(username):
     info = sql_select("SELECT * FROM users WHERE username = %s;", [username])[0]
     return info
 
+def get_user_info(id):
+    info = sql_select("SELECT * FROM users WHERE id = %s;", [id])
+    return info
+
 def create_new_user(name, username, password_hash):
     sql_write(
         'INSERT INTO users(name, username, password_hash, admin) VALUES (%s, %s, %s, %s);',
