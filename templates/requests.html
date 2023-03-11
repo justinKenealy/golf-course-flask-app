@@ -9,7 +9,7 @@
     <h3>Users Have Requested the Following Courses</h3>
     <ul>
         {% for request in course_requests %}
-        <li><a href="{{ request[1] }}">{{ request[0] }}</a></li>
+        <li><a href="{{ request[2] }}" target="blank">{{ request[1] }}</a> - <a href="/requests/{{ request[0] }}"><button>Remove</button></a></li>
         {% endfor %}
     </ul>
 </div>

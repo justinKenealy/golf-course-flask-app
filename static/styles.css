@@ -73,6 +73,8 @@ h1 {
 
 #logout:hover, #viewAll:hover{
     cursor: pointer;
+    color: white;
+    background-color: black;
 }
 
 #loginForm{
@@ -89,6 +91,8 @@ button{
 
 button:hover{
     cursor: pointer;
+    color: white;
+    background-color: black;
 }
 
 #addCourseDiv, #playRound{

@@ -180,8 +180,10 @@ h1 {
     padding: 3px 7px 3px 7px;
 }
 
-#logout:hover, #viewAll:hover, .noAccountYet button:hover{
+#logout:hover, #viewAll:hover, .noAccountYet button:hover, #exportButton:hover{
     cursor: pointer;
+    color: white;
+    background-color: black;
 }
 
 .noAccountYet{
@@ -191,3 +193,12 @@ h1 {
 input{
     text-align: left;
 }
+
+#exportButton {
+    margin: 10px;
+    border-radius: 0;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid black;
+    padding: 3px 7px 3px 7px;
+}
+

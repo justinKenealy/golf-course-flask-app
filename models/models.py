@@ -101,8 +101,13 @@ def add_request(course_name, course_link):
     return
 
 def get_all_requests():
-    info = sql_select_no_params("SELECT course_name, course_link FROM requests")
+    info = sql_select_no_params("SELECT id, course_name, course_link FROM requests")
     return info
+
+def remove_request_from_db(id):
+    sql_write(
+        'DELETE FROM requests WHERE id = %s', [id]
+    )
 
 def get_usernames():
     info = sql_select_no_params("SELECT username FROM users")

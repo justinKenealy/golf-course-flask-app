@@ -17,7 +17,6 @@ const quotesDiv = document.getElementById('golfQuote')
 const generateQuote = function(){
     const selectedQuote = quotes[Math.floor(Math.random()*quotes.length)]
     quotesDiv.innerHTML = `"${selectedQuote}"`
-    console.log('hello')
 }
 generateQuote()
 setInterval(generateQuote, 15000)
@@ -94,3 +93,11 @@ for (let arrow of rightArrows){
     arrow.addEventListener('click', displayCounterPlus)
 }
 
+// export stats to excel
+function exportReportToExcel() {
+    const table= document.getElementById("allRoundsTable")
+       const html = table.outerHTML;
+       window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
+}
+exportButton = document.getElementById('exportButton')
+exportButton.addEventListener('click', exportReportToExcel)
